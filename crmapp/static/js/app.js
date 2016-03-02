@@ -53,4 +53,41 @@ function resetForm($form) {
 
 // Main App
 $(document).ready(function() {
+	$('#gi-container').delegate('.edit-account', 'click', function(e) {
+		e.preventDefault();
+		$('#gi-container').load($(this).attr('href'));
+	});
+
+	$('#cd-container').delegate('#new-contact', 'click', function(e) {
+		e.preventDefault();
+		$.get($(this).attr('href'), function(data) {
+			$('#cd-body').append(data);
+			$('#new-contact').hide();
+		});
+	});
+
+	$('#cd-container').delegate('.edit-contact', 'click', function(e) {
+		e.preventDefault();
+		var that = $(this);
+		$.get($(this).attr('href'), function(data) {
+			$('#new-content').hide();
+			that.parent().parent().remove();
+			$('#cd-body').append(data);
+		});
+	});
+
+	$('#cd-container').delegate('#contact-form', 'submit', function(e) {
+		e.preventDefault();
+		var form = $('#contact-form');
+		var url = form.attr('action');
+		$.post(url, form.serialize(), function(data) {
+			if($(data).find('.errorlist').html()) {
+				$('#new-contact').hide();
+				$('#cd-body').append(data);
+			} else {
+				$('#cd-table tr:last').after(date);
+				$('#new-contact').show();
+			}
+		})
+	})
 });

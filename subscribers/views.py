@@ -1,15 +1,13 @@
-from django.shortcuts import render
+import stripe
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.forms.forms import NON_FIELD_ERRORS
-from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.forms.forms import NON_FIELD_ERRORS
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
-from . import forms
-from . import models
-
-import stripe
+from . import forms, models
 
 
 def subscriber_new(request, template='subscribers/new.html'):

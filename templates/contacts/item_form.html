@@ -1,0 +1,8 @@
+<form id="contact-form" action="{% if contact.uuid %}{% url 'contacts:update' contact.uuid %}{% else %}{% url 'contacts:new' %}{% endif %}" method="post">
+	{% csrf_token %}
+
+	{{ form }}
+
+	<input id="id_account" type="hidden" name="account" value="{% if request.GET.account %}{{ request.GET.account }}{% else %}{{ account.id %}{% endif %}">
+	<input id="contact-submit" class="btn btn-primary m-p-none" type="submit" value="SAVE">
+</form>

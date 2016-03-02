@@ -7,5 +7,23 @@
 				{% include 'accounts/item_view.html' %}
 			</div>
 		</div>
+
+		<div id="cd-container" class="ad-container">
+			<div class="ad-headers">
+				<h4 class="ad-mh m-none">Contacts</h4>
+			</div>
+
+			<div id="cd-body" class="row">
+				<table id="cd-table" class="table table-hover">
+					<tbody>
+						{% for contact in contacts %}
+							{% include 'contacts/item_view.html' %}
+						{% endfor %}
+					</tbody>
+				</table>
+
+				<a id="new-contact" class="btn btn-link" href="{% url 'contacts:new' %}?account={{ account.id }}">New Contact</a>
+			</div>
+		</div>
 	</div>
 {% endblock %}

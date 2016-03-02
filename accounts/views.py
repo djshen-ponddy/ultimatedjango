@@ -1,12 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView
 
-from . import models
-from . import forms
+from contacts.models import Contact
+
+from . import forms, models
+
 
 # Create your views here.
 
@@ -50,8 +52,11 @@ def account_detail(request, uuid):
     if account.owner != request.user:
         return HttpResponseForbidden()
 
+    contacts = Contact.objects.filter(account=account)
+
     variables = {
         'account': account,
+        'contacts': contacts,
     }
 
     return render(request, 'accounts/detail.html', variables)

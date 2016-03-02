@@ -1,0 +1,12 @@
+<tr>
+	<td class="ci-td-p-l">{{ contact.full_name }}</td>
+	<td>{{ contact.role }}</td>
+	<td>{{ contact.email }}</td>
+	<td>{{ contact.phone }}</td>
+	<td class="con-cntrl">
+		<a class="pen edit-contact" href="{{ contact.get_update_url }}?account={{ account.id }}"></a>
+	</td>
+	<td class="ci-td-p-r">
+		<a class="cancel" href="{{ contact.get_delete_url }}?account={{ account.id }}"></a>
+	</td>
+</tr>
