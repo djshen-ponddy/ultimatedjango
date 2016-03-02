@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Home{% endblock %}
+{% block nav-style %}mkt-nav{% endblock %}
+
+{% block content %}
+	<div class="mkt-s1">
+		<div class="mkt-s1-body container">
+			<div class="row">
+				<h1 class="col-md-8">Never Miss Another Opportunity</h1>
+			</div>
+
+			<div class="row">
+				<p class="col-md-8">A CRm application</p>
+			</div>
+
+			<div class="row">
+				<a class="sign-up btn btn-success" href="">Sigh Up Now</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="mkt-s2 container">
+		<h2 class="mkt-s2-h">Why Buy</h2>
+
+		<div class="mkt-s2 body">
+			<div class="col-md-4 mkt-vp">
+				<img src="{% static 'images/clock.png' %}" alt="">
+				<h5>Save Time</h5>
+				<p>By tracking .....</p>
+			</div>
+
+			<div class="col-md-4 mkt-vp">
+				<img src="{% static 'images/lightbulb.png' %}" alt="">
+				<h5>Stay Current</h5>
+				<p>By tracking .....</p>
+			</div>
+
+			<div class="col-md-4 mkt-vp">
+				<img src="{% static 'images/dollar.png' %}" alt="">
+				<h5>Win Business</h5>
+				<p>By tracking .....</p>
+			</div>
+		</div>
+
+		<a class="sgn-btm" href="{% url 'subscribers:new' %}">SIGN UP FOR</a>
+	</div>
+{% endblock %}

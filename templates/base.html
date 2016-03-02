@@ -1,0 +1,49 @@
+{% load staticfiles %}
+{% load pipeline %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}Home{% endblock %} | CRM Easy</title>
+		{% block head_favicon %}
+		<link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+		{% endblock %}
+		{% block head_meta %}
+			{% block head_meta_charset %}
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			{% endblock %}
+			{% block head_meta_contentlanguage %}
+				<meta http-equiv="Content-Language" value="en-US">
+			{% endblock %}
+			{% block head_meta_viewport %}
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			{% endblock %}
+		{% endblock %}
+		{% block head_css %}
+			{% block head_css_site %}
+				{% stylesheet 'main' %}
+			{% endblock %}
+			{% block head_css_section %}{% endblock %}
+			{% block head_css_page %}{% endblock %}
+		{% endblock %}
+	</head>
+
+	<body>
+		{% include 'common/header.html' %}
+
+		<div id="site-wrapper">
+			{% block content %}
+				if you see this, something is wrong
+			{% endblock %}
+		</div>
+
+		{% include 'common/footer.html' %}
+	</body>
+
+	{% block footer_javascript %}
+		{% block footer_javascript_site %}
+			{% javascript 'main' %}
+		{% endblock %}
+		{% block footer_javascript_section %}{% endblock %}
+		{% block footer_javascript_page %}{% endblock %}
+	{% endblock %}
+</html>

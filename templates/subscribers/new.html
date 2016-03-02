@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+	<div id="content-container" class="container p-none">
+		<div class="side-p">
+			<form id="user-reg-form" action="." method="post">
+				{% csrf_token %}
+				<h3>Sighup for a</h3>
+				<h5 class="sn-sh">VREATE A USERNAME</h5>
+				{{ form }}
+			</form>
+
+			<h5 class="sn-sh">CREDIT CARD</h5>
+			<form id="payment-form" action="." method="post">
+				<label for="stripe_number">Card Number</label>
+				<input id="stripe_number" type="text" size="32" data-stripe="number" class="col-md-8 from-control">
+
+				<label for="stripe_cvc">CVC</label>
+				<input id="stripe_cvc" type="text" size="4" data-stripe="cvc" class="col-md-2 from-control">
+
+				<label for="stripe_exp-month">Exp Month</label>
+				<input id="strip_exp-month" type="text" size="2" data-stripe="exp-month" class="col-md-1 from-control">
+
+				<label for="stripe_exp-year">Exp Year</label>
+				<input id="strip_exp-year" type="text" size="4" data-stripe="exp-year" class="col-md-1 from-control">
+
+				<span class="payment-errors label label-danger"></span>
+
+				<div>
+					{% for err in form.non_field_errors %}
+						<p class="label label-danger">{{ err }}</p>
+					{% endfor %}
+				</div>
+
+				<input id="payment-submit" type="submit" value="Signup" class="btn btn-primary">
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer_javascript_page %}
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<script type="text/javascript">
+		(function() {
+			Stripe.setPublishableKey('{{ STRIPE_PUBLISHABLE_KEY }}');
+
+			var stripeResponseHandler = function(status, response) {
+				var $form = $('#payment-form');
+				var $regForm = $('#user-reg-form');
+
+				if(response.error) {
+					$form.find('.payment-errors').text(response.error.message);
+					$form.find('#payment-submit').prop('disabled', false);
+				} else {
+					var token = response.id;
+					$regForm.append($('<input type="hidden" name="stripeToken">').val(token));
+					console.log('submit 2');
+					$regForm.get(0).submit();
+				}
+			};
+
+			jQuery(function($) {
+				$('#payment-form').submit(function(event) {
+					console.log('submit 1');
+					var $form = $(this);
+					$form.find('#payment-submit').prop('disabled', true);
+					Stripe.createToken($form, stripeResponseHandler);
+					return false;
+				});
+			});
+		}).call(this);
+	</script>
+{% endblock %}
